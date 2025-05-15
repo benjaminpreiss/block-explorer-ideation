@@ -4,7 +4,7 @@ import "@fontsource/ibm-plex-mono/500.css";
 import "@fontsource/ibm-plex-mono/600.css";
 import "@fontsource/ibm-plex-mono/700.css";
 import "./globals.css";
-import Nav from "./components/Nav";
+import Nav from "@/components/Nav";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -19,11 +19,11 @@ export default function RootLayout({
   return (
     <html lang="en" className="bg-brand-dark">
       <body className="antialiased flex justify-center w-full">
-        <div className="grid grid-cols-1 md:grid-cols-2 md:p-4 p-2 max-w-5xl w-full">
+        <div className="grid grid-cols-1 md:grid-cols-2 md:p-4 p-2 max-w-5xl w-full gap-y-4 md:gap-y-10">
           <div className="md:col-span-2">
             <Nav />
           </div>
-          <main className="">{children}</main>
+          {children}
         </div>
       </body>
     </html>

@@ -1,3 +1,9 @@
+import BlackBox from "@/components/BlackBox";
+
 export default function Home() {
-  return <div className=""></div>;
+  return (
+    <main className="grid grid-cols-subgrid">
+      <BlackBox text="Welcome to ETH explorer!" />
+    </main>
+  );
 }
