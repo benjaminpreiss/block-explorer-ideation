@@ -16,7 +16,7 @@ Similar to tools such as Dune Analytics, GrowThePie, and Etherscan - please prov
   * NFTs
   * Recent Transactions
   * Transaction history
-* Feel free to explore different avenues in your approach to this problem. We are not looking for all specific points above to be completed but more of a smooth user journey that demos your vision. 
+* Feel free to explore different avenues in your approach to this problem. We are not looking for all specific points above to be completed but more of a smooth user journey that demos your vision.
 
 ## Deliverables
 Make sure to include all source code in the repository. To make reviewing easier, include a compiled version of your assignment in a folder named public.
@@ -37,3 +37,33 @@ All the best and happy coding,
 
 The Provable Team
 
+
+## Notes
+
+I will complete:
+
+Start page:
+* Recent Transactions, with dynamic time stamp that tracks the time "since", and also shows if there is more recent blocks
+* Number of Transactions, counted per day, over a month
+* Most recent block
+
+Address specific page:
+* Transaction history
+* Recent Transactions
+
+
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+
+## Getting Started
+
+First, run the development server:
+
+```bash
+pnpm dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
