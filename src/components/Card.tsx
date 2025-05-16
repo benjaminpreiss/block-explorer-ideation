@@ -19,7 +19,7 @@ type Props = {
 export default function Card({ head, text, children, variant }: Props) {
   return (
     <div
-      className={`${variant === "dark" ? "bg-black" : "bg-brand-light border-2"} border-black rounded-4xl md:rounded-[2.5rem] p-5 md:p-10 md:pl-14 md:pr-14 flex flex-col gap-3`}
+      className={`${variant === "dark" ? "bg-black" : "bg-brand-light border-2"} border-black rounded-4xl md:rounded-[2.5rem] p-5 md:p-10 md:pl-14 md:pr-14 flex flex-col gap-3 h-full`}
     >
       {head && (
         <span

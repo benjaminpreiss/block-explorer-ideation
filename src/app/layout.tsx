@@ -5,6 +5,7 @@ import "@fontsource/ibm-plex-mono/600.css";
 import "@fontsource/ibm-plex-mono/700.css";
 import "./globals.css";
 import Nav from "@/components/Nav";
+import ReactQueryProvider from "@/components/ReactQueryProvider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -23,7 +24,7 @@ export default function RootLayout({
           <div className="md:col-span-2">
             <Nav />
           </div>
-          {children}
+          <ReactQueryProvider>{children}</ReactQueryProvider>
         </div>
       </body>
     </html>
