@@ -11,16 +11,24 @@ type Props = {
     button?: Button;
     inverseMobile?: true;
   };
-  text?: string;
+  text?: ReactNode;
+  truncateText?: true;
   children?: ReactNode; // none, or exactly one child.
   footer?: Button & { centered?: true };
   variant: "light" | "dark";
 };
 
-export default function Card({ head, text, children, variant, footer }: Props) {
+export default function Card({
+  head,
+  text,
+  children,
+  variant,
+  footer,
+  truncateText,
+}: Props) {
   return (
     <div
-      className={`${variant === "dark" ? "bg-black" : "bg-brand-light border-2"} border-black rounded-4xl md:rounded-[2.5rem] p-5 md:p-10 md:pl-14 md:pr-14 flex flex-col gap-3 h-full`}
+      className={`${variant === "dark" ? "bg-black" : "bg-brand-light border-2"} border-black rounded-4xl md:rounded-[2.5rem] p-5 md:p-10 md:pl-14 md:pr-14 flex flex-col gap-3 h-full ${truncateText ? "min-w-0" : ""}`}
     >
       {head && (
         <div
@@ -49,7 +57,7 @@ export default function Card({ head, text, children, variant, footer }: Props) {
       )}
       {text && (
         <span
-          className={`${variant === "dark" ? "text-white" : "text-black"} font-bold text-3xl md:text-4xl`}
+          className={`${variant === "dark" ? "text-white" : "text-black"} max-w-full w-full font-bold text-3xl md:text-4xl ${truncateText ? "truncate" : ""}`}
         >
           {text}
         </span>

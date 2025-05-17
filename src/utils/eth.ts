@@ -1,16 +1,14 @@
-import { createPublicClient, http } from "viem";
+import { Address, createPublicClient, http } from "viem";
 import { mainnet } from "viem/chains";
-// import Moralis from "moralis";
+import Moralis from "moralis";
 const duneOptions = {
   method: "GET",
   headers: { "X-DUNE-API-KEY": process.env.DUNE_API_KEY as string },
 };
 
-/*
 await Moralis.start({
   apiKey: process.env.MORALIS_API_KEY,
 });
-*/
 
 export const drpcClient = createPublicClient({
   chain: mainnet,
@@ -41,6 +39,33 @@ export async function getBlockByNumber({
 }) {
   return await drpcClient.getBlock({ blockNumber, includeTransactions: true });
 }
+
+// returns balance in wei
+export async function getBalance({ address }: { address: Address }) {
+  return await drpcClient.getBalance({
+    address,
+  });
+}
+
+export async function getLatestWalletTransactions({
+  cursor,
+  address,
+}: {
+  cursor?: string;
+  address: Address;
+}) {
+  return Moralis.EvmApi.transaction.getWalletTransactions({
+    chain: "0x1",
+    order: "DESC",
+    address: address,
+    limit: 4,
+    cursor,
+  });
+}
+
+export type GetLatestWalletTransactionsData = Awaited<
+  ReturnType<typeof getLatestWalletTransactions>
+>;
 
 export function rangeBigInt(start: bigint, end: bigint): bigint[] {
   if (end < start) {
