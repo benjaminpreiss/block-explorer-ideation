@@ -1,12 +1,12 @@
 "use client";
 import Card from "@/components/Card";
 import Input from "@/components/Input";
-import { useInfiniteQuery, useQueries, useQuery } from "@tanstack/react-query";
+import { useQueries, useQuery } from "@tanstack/react-query";
 import { LineChart, Line, ResponsiveContainer, Tooltip, YAxis } from "recharts";
 import { extent } from "d3";
 import { GetBlockByNumber, rangeBigInt, TransactionsCounts } from "@/utils/eth";
 import Block from "@/components/Block";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import TimeTracker from "@/components/Time";
 import { useSearch } from "@/components/Search";
 

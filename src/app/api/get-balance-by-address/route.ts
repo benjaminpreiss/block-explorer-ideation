@@ -1,6 +1,6 @@
-import { getBalance, getBlockByNumber } from "@/utils/eth";
+import { getBalance } from "@/utils/eth";
 import { NextRequest } from "next/server";
-import { Address, isAddress } from "viem";
+import { isAddress } from "viem";
 
 // This requires CORS protection!
 // Didn't add, due to time constraints.

@@ -1,15 +1,4 @@
-import { GetBlockByNumber, rangeBigInt } from "@/utils/eth";
 import { useTimePassed } from "@/components/Time";
-import { useInfiniteQuery, useQueries } from "@tanstack/react-query";
-import {
-  createContext,
-  Dispatch,
-  ReactNode,
-  SetStateAction,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
 import { Address, formatEther, Transaction } from "viem";
 import { formatAtLeast2SignificantNoSci } from "@/utils/formatting";
 import Link from "next/link";

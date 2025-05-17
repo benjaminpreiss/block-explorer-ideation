@@ -1,17 +1,12 @@
 "use client";
 import AccountTxn from "@/components/AccountTxn";
 import Card from "@/components/Card";
-import { GetLatestWalletTransactionsData } from "@/utils/eth";
 import { useQuery } from "@tanstack/react-query";
 import { notFound, useParams } from "next/navigation";
 import { useState } from "react";
-import { isAddress, formatEther } from "viem";
+import { isAddress, formatEther, Address } from "viem";
 
-export default function Page({
-  params,
-}: {
-  params: Promise<{ address: string }>;
-}) {
+export default function Page() {
   const { address } = useParams<{ address: string }>();
   const balanceQuery = useQuery({
     queryKey: ["balance", address],
@@ -81,17 +76,31 @@ export default function Page({
         }
       >
         <div className="flex flex-col gap-3 -mx-3 md:mx-0 -mb-8 md:mb-0 min-h-[38rem] lg:min-h-[26rem]">
-          {latestTxtQuery.data?.result.map((d: any, i: number) => (
-            <AccountTxn
-              key={i}
-              transactionFee={d.transaction_fee}
-              address={address === d.to_address ? d.from_address : d.to_address}
-              direction={address === d.to_address ? "From" : "To"}
-              amount={d.value}
-              blockNumber={d.block_number}
-              blockTimestamp={d.block_timestamp}
-            />
-          ))}
+          {latestTxtQuery.data?.result.map(
+            (
+              d: {
+                transaction_fee: string;
+                to_address: Address;
+                from_address: Address;
+                value: number;
+                block_number: number;
+                block_timestamp: string;
+              },
+              i: number,
+            ) => (
+              <AccountTxn
+                key={i}
+                transactionFee={d.transaction_fee}
+                address={
+                  address === d.to_address ? d.from_address : d.to_address
+                }
+                direction={address === d.to_address ? "From" : "To"}
+                amount={d.value}
+                blockNumber={d.block_number}
+                blockTimestamp={d.block_timestamp}
+              />
+            ),
+          )}
         </div>
       </Card>
     </main>

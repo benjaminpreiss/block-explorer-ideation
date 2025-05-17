@@ -56,7 +56,7 @@ export const useSearch = () => {
 };
 
 export default function Search() {
-  const { toggled, setToggled, value, onChange, setValue } = useSearch();
+  const { toggled, setToggled, value, onChange } = useSearch();
   const router = useRouter();
   return (
     toggled && (
