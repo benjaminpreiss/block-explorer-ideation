@@ -12,6 +12,7 @@ import {
 } from "react";
 import { Address, formatEther, Transaction } from "viem";
 import { formatAtLeast2SignificantNoSci } from "@/utils/formatting";
+import Link from "next/link";
 
 type BlockData = {
   number: bigint;
@@ -29,9 +30,12 @@ function Header({ data }: { data: BlockData }) {
         <span className="font-semibold text-sm md:text-base">
           Block {data.number}, {timePassed}
         </span>
-        <span className="font-semibold text-sm md:text-base">
+        <Link
+          href={`/wallet/${data.miner}`}
+          className="font-semibold text-sm md:text-base hover:underline underline-offset-2"
+        >
           Miner: {data.miner}
-        </span>
+        </Link>
       </div>
       <span className="font-normal text-[0.8125rem] leading-tight md:text-sm">
         {data.transactions.length} transactions
@@ -69,12 +73,18 @@ function Txn({
         </span>
       </div>
       <div className="flex lg:flex-row flex-col justify-between gap-1 md:gap-1 md:gap-x-8 lg:items-center">
-        <span className="font-semibold text-sm md:text-base">
+        <Link
+          href={`/wallet/${from}`}
+          className="font-semibold text-sm md:text-base hover:underline underline-offset-2"
+        >
           From: {from.slice(0, 16) + "..."}
-        </span>
-        <span className="font-semibold text-sm md:text-base">
+        </Link>
+        <Link
+          href={`/wallet/${from}`}
+          className="font-semibold text-sm md:text-base hover:underline underline-offset-2"
+        >
           To: {to ? to.slice(0, 16) + "..." : "-"}
-        </span>
+        </Link>
       </div>
     </div>
   );

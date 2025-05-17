@@ -8,8 +8,11 @@ import { GetBlockByNumber, rangeBigInt, TransactionsCounts } from "@/utils/eth";
 import Block from "@/components/Block";
 import { useEffect, useRef, useState } from "react";
 import TimeTracker from "@/components/Time";
+import { useSearch } from "@/components/Search";
 
 export default function Home() {
+  const { value, onChange, setToggled } = useSearch();
+
   const dailyTransactionCounts30DaysQuery = useQuery({
     queryKey: ["daily-transaction-counts-30-days"],
     queryFn: async () => {
@@ -126,7 +129,13 @@ export default function Home() {
 
       <div className="md:col-start-1 md:row-start-2 col-span-1">
         <Card variant="light" head={{ title: "Search for address" }}>
-          <Input />
+          <Input
+            onClick={() => {
+              setToggled(true);
+            }}
+            value={value}
+            onChange={onChange}
+          />
         </Card>
       </div>
       <div className="md:col-start-2 md:row-start-1 md:row-span-2">
@@ -177,7 +186,7 @@ export default function Home() {
             button: recentBlocksCardHeadButton,
           }}
         >
-          <div className="flex flex-col gap-3 -mx-3 md:mx-0 -mb-8 md:mb-0">
+          <div className="flex flex-col gap-3 -mx-3 md:mx-0 -mb-8 md:mb-0 min-h-[38rem] lg:min-h-[26rem]">
             {blocksQuery.data.map((d, i, arr) => (
               <Block
                 data={{ ...d, lastUpdatedAt: blocksQuery.lastUpdatedAt }}

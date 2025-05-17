@@ -6,6 +6,7 @@ import "@fontsource/ibm-plex-mono/700.css";
 import "./globals.css";
 import Nav from "@/components/Nav";
 import ReactQueryProvider from "@/components/ReactQueryProvider";
+import Search, { SearchContextProvider } from "@/components/Search";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -20,12 +21,15 @@ export default function RootLayout({
   return (
     <html lang="en" className="bg-brand-dark">
       <body className="antialiased flex justify-center w-full pb-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 md:p-4 p-2 max-w-5xl w-full gap-y-4 md:gap-y-10">
-          <div className="md:col-span-2">
-            <Nav />
+        <SearchContextProvider>
+          <Search />
+          <div className="grid grid-cols-1 md:grid-cols-2 md:p-4 p-2 max-w-5xl w-full gap-y-4 md:gap-y-10">
+            <div className="md:col-span-2">
+              <Nav />
+            </div>
+            <ReactQueryProvider>{children}</ReactQueryProvider>
           </div>
-          <ReactQueryProvider>{children}</ReactQueryProvider>
-        </div>
+        </SearchContextProvider>
       </body>
     </html>
   );
