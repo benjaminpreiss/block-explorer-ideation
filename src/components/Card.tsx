@@ -1,8 +1,8 @@
 import type { ReactNode } from "react";
 
 type Button = {
-  text: string;
-  action: () => void;
+  text: ReactNode;
+  action?: () => void;
 };
 
 type Props = {
@@ -12,21 +12,35 @@ type Props = {
   };
   text?: string;
   children?: ReactNode; // none, or exactly one child.
-  footer?: Button;
+  footer?: Button & { centered?: true };
   variant: "light" | "dark";
 };
 
-export default function Card({ head, text, children, variant }: Props) {
+export default function Card({ head, text, children, variant, footer }: Props) {
   return (
     <div
       className={`${variant === "dark" ? "bg-black" : "bg-brand-light border-2"} border-black rounded-4xl md:rounded-[2.5rem] p-5 md:p-10 md:pl-14 md:pr-14 flex flex-col gap-3 h-full`}
     >
       {head && (
-        <span
-          className={`${variant === "dark" ? "text-white" : "text-black"} font-semibold text-xl md:text-2xl`}
-        >
-          {head.title}
-        </span>
+        <div className="flex justify-between md:flex-row flex-col gap-3">
+          <span
+            className={`${variant === "dark" ? "text-white" : "text-black"} font-semibold text-xl md:text-2xl`}
+          >
+            {head.title}
+          </span>
+          <span className="text-left md:text-right font-semibold text-base md:text-xl mb-2 md:mb-0">
+            {head.button?.action ? (
+              <button
+                className={`underline underline-offset-2 cursor-pointer [text-align:inherit]`}
+                onClick={head.button.action}
+              >
+                {head.button?.text}
+              </button>
+            ) : (
+              head.button?.text
+            )}
+          </span>
+        </div>
       )}
       {text && (
         <span
@@ -36,6 +50,22 @@ export default function Card({ head, text, children, variant }: Props) {
         </span>
       )}
       {children}
+      {footer && (
+        <span
+          className={`${footer.centered ? "text-center" : "text-left"} font-semibold text-base md:text-xl`}
+        >
+          {footer.action ? (
+            <button
+              className={`underline underline-offset-2 cursor-pointer [text-align:inherit]`}
+              onClick={footer.action}
+            >
+              {footer.text}
+            </button>
+          ) : (
+            footer?.text
+          )}
+        </span>
+      )}
     </div>
   );
 }
