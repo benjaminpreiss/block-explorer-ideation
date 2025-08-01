@@ -2,54 +2,64 @@ import { useState, useEffect } from "react";
 import { DateTime } from "luxon";
 
 export function useTimePassed(timestampMillis: number) {
-  const [timePassed, setTimePassed] = useState("");
+	const [timePassed, setTimePassed] = useState("");
 
-  useEffect(() => {
-    if (typeof timestampMillis !== "number" || isNaN(timestampMillis)) {
-      setTimePassed("Invalid timestamp");
-      return;
-    }
+	useEffect(() => {
+		if (typeof timestampMillis !== "number" || isNaN(timestampMillis)) {
+			setTimePassed("Invalid timestamp");
+			return;
+		}
 
-    const updateTimePassed = () => {
-      const start = DateTime.fromMillis(timestampMillis);
-      const now = DateTime.now();
+		const updateTimePassed = () => {
+			const start = DateTime.fromMillis(timestampMillis);
+			const now = DateTime.now();
 
-      const diff = now.diff(start, [
-        "years",
-        "months",
-        "days",
-        "hours",
-        "minutes",
-        "seconds",
-      ]);
+			const diff = now.diff(start, [
+				"years",
+				"months",
+				"days",
+				"hours",
+				"minutes",
+				"seconds",
+			]);
 
-      const parts = [];
-      if (diff.years) parts.push(`${Math.floor(diff.years)}y`);
-      if (diff.months) parts.push(`${Math.floor(diff.months)}mo`);
-      if (diff.days) parts.push(`${Math.floor(diff.days)}d`);
-      if (diff.hours) parts.push(`${Math.floor(diff.hours)}h`);
-      if (diff.minutes) parts.push(`${Math.floor(diff.minutes)}m`);
+			const parts = [];
+			if (diff.years) parts.push(`${Math.floor(diff.years)}y`);
+			if (diff.months) parts.push(`${Math.floor(diff.months)}mo`);
+			if (diff.days) parts.push(`${Math.floor(diff.days)}d`);
+			if (diff.hours) parts.push(`${Math.floor(diff.hours)}h`);
+			if (diff.minutes) parts.push(`${Math.floor(diff.minutes)}m`);
 
-      parts.push(`${Math.floor(diff.seconds)}s`);
+			parts.push(`${Math.floor(diff.seconds)}s`);
 
-      setTimePassed(parts.join(" ") || "0s");
-    };
+			setTimePassed(parts.join(" ") || "0s");
+		};
 
-    updateTimePassed();
+		updateTimePassed();
 
-    const interval = setInterval(updateTimePassed, 1000);
+		const interval = setInterval(updateTimePassed, 1000);
 
-    return () => clearInterval(interval);
-  }, [timestampMillis]);
+		return () => clearInterval(interval);
+	}, [timestampMillis]);
 
-  return timePassed;
+	return timePassed;
 }
 
 export default function TimeTracker({
-  timestampMillis,
+	timestampMillis,
 }: {
-  timestampMillis: number;
+	timestampMillis: number;
 }) {
-  const timePassed = useTimePassed(timestampMillis);
-  return <span>{timePassed}</span>;
+	const [mounted, setMounted] = useState(false);
+	const timePassed = useTimePassed(timestampMillis);
+
+	useEffect(() => {
+		setMounted(true);
+	}, []);
+
+	if (!mounted) {
+		return <span>--</span>;
+	}
+
+	return <span>{timePassed}</span>;
 }
