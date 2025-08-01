@@ -2,6 +2,11 @@
 
 A modern, responsive Ethereum blockchain explorer built with Next.js, TypeScript, and React Query. This application provides real-time insights into Ethereum network activity and detailed wallet analytics.
 
+**Demo**
+
+-   [Mobile: https://lvpr.tv?v=6c2bqux3l0j7isns](https://lvpr.tv?v=6c2bqux3l0j7isns)
+-   [Desktop: https://lvpr.tv/?v=e532bqrnztevgvk5](https://lvpr.tv/?v=e532bqrnztevgvk5)
+
 ## 🚀 Features
 
 ### Network Analytics Dashboard
