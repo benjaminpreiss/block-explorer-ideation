@@ -1,69 +1,174 @@
-### Objective
-Your assignment is to implement an analytics dashboard using React, Next.js and/or Typescript to illustrate on-chain metrics and portfolio analytics for given wallet addresses on Ethereum. The dashboard should be a seamless user journey highlighting metrics and network growth through sleek visualizations.
+# Ethereum Block Explorer
 
-## Brief
-Similar to tools such as Dune Analytics, GrowThePie, and Etherscan - please provide a high-level overview of network analytics as well as wallet information to help a new user understand the health of the network as well as make informed decisions. Feel free to use open-source RPC endpoints such as Ankr/Alchemy as well as isolate the data you are processing to a small block range. The tasks below outline what we are looking for!
+A modern, responsive Ethereum blockchain explorer built with Next.js, TypeScript, and React Query. This application provides real-time insights into Ethereum network activity and detailed wallet analytics.
 
-## Tasks
-* The Application should provide users with a homepage that highlights some network stats for example you could show:
-  * Most Recent Block
-  * Top Smart Contracts
-  * Top Wallets
-  * Number of Transaction Growth over Time
-  * Recent Transactions
-* Then for an address specific page, you could show:
-  * ERC20 Balances
-  * NFTs
-  * Recent Transactions
-  * Transaction history
-* Feel free to explore different avenues in your approach to this problem. We are not looking for all specific points above to be completed but more of a smooth user journey that demos your vision.
+## 🚀 Features
 
-## Deliverables
-Make sure to include all source code in the repository. To make reviewing easier, include a compiled version of your assignment in a folder named public.
+### Network Analytics Dashboard
 
-## Evaluation Criteria
-* React/Next/Typescript best practices
-* We're looking for you to produce working code, with enough room to demonstrate how to structure components in a small program.
-* Show us your work through your commit history
-* Completeness: did you complete the features?
-* Correctness: does the functionality act in sensible, thought-out ways?
-* Maintainability: is it written in a clean, maintainable way?
-* Testing: is the system adequately tested? are you using Cypress or Playwright?
+-   **Real-time Block Monitoring**: View the most recent finalized blocks with automatic updates every 12 seconds
+-   **Transaction Volume Trends**: Interactive 30-day chart showing daily transaction counts using Dune Analytics data
+-   **Live Block Details**: Expandable block information including transactions, gas usage, and timestamps
+-   **Dynamic Time Tracking**: Real-time "time since" indicators for all blockchain events
 
-## CodeSubmit
-Please organize, design, test and document your code as if it were going into production - then push your changes to the master branch. After you have pushed your code, you may submit the assignment on the assignment page.
+### Wallet Analytics
 
-All the best and happy coding,
+-   **Address Search**: Instant validation and navigation to wallet details
+-   **Balance Display**: Current ETH balance with precision formatting
+-   **Transaction History**: Paginated transaction list with detailed information
+-   **Transaction Analysis**: Direction indicators (sent/received) and fee calculations
 
-The Provable Team
+### Technical Features
 
+-   **Responsive Design**: Mobile-first approach with Tailwind CSS
+-   **Real-time Updates**: Automatic data refreshing and sync indicators
+-   **Error Handling**: Comprehensive error states and loading indicators
+-   **Performance Optimized**: React Query caching and parallel API requests
+-   **Type Safety**: Full TypeScript implementation with strict typing
 
-## Notes
+## 🛠 Tech Stack
 
-I will complete:
+-   **Framework**: Next.js 15.3.2 with App Router
+-   **Language**: TypeScript 5
+-   **Styling**: Tailwind CSS 4
+-   **State Management**: TanStack React Query v5
+-   **Charts**: Recharts with D3.js integration
+-   **Blockchain Integration**:
+    -   Viem for Ethereum interactions
+    -   Moralis Web3 API for transaction data
+    -   DRPC for RPC calls
+    -   Dune Analytics for network statistics
+-   **Testing**: Vitest with React Testing Library
+-   **Package Manager**: pnpm
 
-Start page:
-* Recent Transactions, with dynamic time stamp that tracks the time "since", and also shows if there is more recent blocks
-* Number of Transactions, counted per day, over a month
-* Most recent block
+## 🏗 Architecture
 
-Address specific page:
-* Transaction history
-* Recent Transactions
+### API Routes
 
+-   [`/api/get-latest-finalized-block`](src/app/api/get-latest-finalized-block/route.ts) - Latest block number
+-   [`/api/get-block-by-number`](src/app/api/get-block-by-number/route.ts) - Block details with transactions
+-   [`/api/get-balance-by-address`](src/app/api/get-balance-by-address/route.ts) - Wallet ETH balance
+-   [`/api/get-txns-by-wallet`](src/app/api/get-txns-by-wallet/route.ts) - Paginated transaction history
+-   [`/api/get-daily-transaction-counts-30-days`](src/app/api/get-daily-transaction-counts-30-days/route.ts) - Network analytics
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+### Key Components
 
-## Getting Started
+-   [`Block`](src/components/Block.tsx) - Interactive block display with transaction details
+-   [`AccountTxn`](src/components/AccountTxn.tsx) - Transaction list item with direction indicators
+-   [`Search`](src/components/Search.tsx) - Modal search interface with address validation
+-   [`Time`](src/components/Time.tsx) - Dynamic timestamp component
+-   [`Card`](src/components/Card.tsx) - Reusable UI container with variants
 
-First, run the development server:
+### Utilities
+
+-   [`eth.ts`](src/utils/eth.ts) - Blockchain interaction utilities and API clients
+-   [`formatting.ts`](src/utils/formatting.ts) - Data formatting helpers
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+-   Node.js 18+
+-   pnpm package manager
+
+### Environment Variables
+
+Create a `.env.local` file with the following variables:
 
 ```bash
-pnpm dev
+DRPC_API_KEY=your_drpc_api_key
+MORALIS_API_KEY=your_moralis_api_key
+DUNE_API_KEY=your_dune_analytics_api_key
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Installation & Development
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+# Install dependencies
+pnpm install
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# Start development server
+pnpm dev
+
+# Build for production
+pnpm build
+
+# Start production server
+pnpm start
+
+# Run tests
+pnpm test
+
+# Lint code
+pnpm lint
+```
+
+Open [http://localhost:3000](http://localhost:3000) to view the application.
+
+## 📱 Usage
+
+### Homepage
+
+-   View real-time network statistics and recent blocks
+-   Monitor daily transaction volume trends
+-   Access the search functionality to explore specific addresses
+
+### Wallet Pages
+
+Navigate to `/wallet/[address]` to view:
+
+-   Current ETH balance
+-   Complete transaction history with pagination
+-   Transaction details including fees, amounts, and timestamps
+
+### Search
+
+-   Click the search input or use the modal overlay
+-   Enter any valid Ethereum address (0x...)
+-   Automatic validation and navigation to wallet details
+
+## 🧪 Testing
+
+The project includes comprehensive testing setup:
+
+```bash
+# Run all tests
+pnpm test
+
+# Run tests in watch mode
+pnpm test --watch
+
+# Run tests with coverage
+pnpm test --coverage
+```
+
+Test files are located alongside source files with `.test.ts` extension.
+
+## 🏗 Development
+
+### Project Structure
+
+```
+src/
+├── app/                    # Next.js App Router pages
+│   ├── api/               # API route handlers
+│   ├── wallet/[address]/  # Dynamic wallet pages
+│   └── page.tsx           # Homepage
+├── components/            # Reusable React components
+└── utils/                # Utility functions and helpers
+```
+
+### Code Quality
+
+-   ESLint configuration for code consistency
+-   TypeScript strict mode enabled
+-   Comprehensive error handling
+-   Performance optimizations with React Query
+
+## 🤝 Contributing
+
+This is a demonstration project. For questions or feedback, please contact the development team.
+
+---
+
+Built with ❤️ using modern web technologies for optimal performance and user experience.
